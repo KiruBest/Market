@@ -28,4 +28,6 @@
     <string name="successful">Успешно!</string>
     <string name="invalid_email_or_password">Неверная почта или пароль</string>
     <string name="all_categories">Все категории</string>
+    <string name="buy_products">Купить</string>
+    <string name="total">сумма</string>
 </resources>
