@@ -30,6 +30,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <LinearLayout
+            android:visibility="invisible"
             android:id="@+id/totalLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -56,6 +57,17 @@
                 android:layout_gravity="end"
                 android:text="sum" />
         </LinearLayout>
+
+        <TextView
+            style="@style/TextViewMain"
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/basket_is_empty"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

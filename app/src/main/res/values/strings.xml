@@ -51,5 +51,6 @@
     <string name="invalid_email_or_password">Invalid email or password</string>
     <string name="buy_products">Buy</string>
     <string name="total">total</string>
+    <string name="basket_is_empty">Basket is empty</string>
 
 </resources>
