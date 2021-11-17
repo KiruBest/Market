@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "511047584298",
+    "project_id": "magazine-data-base",
+    "storage_bucket": "magazine-data-base.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:511047584298:android:366e00799054660d799153",
+        "android_client_info": {
+          "package_name": "com.example.magazine"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "511047584298-ns9391g61t4tadlaqek0i697ggmj8fdi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6SdJPgH9VT5RcC21XhQ4vFwdS8jsT8lk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "511047584298-ns9391g61t4tadlaqek0i697ggmj8fdi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

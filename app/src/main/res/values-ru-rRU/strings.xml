@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Magazine</string>
+    <string name="shop">Витрина</string>
+    <string name="search">Поиск</string>
+    <string name="basket">Корзина</string>
+    <string name="favorites">Избранное</string>
+    <string name="add_to_bag">Добавить в корзину</string>
+    <string name="sign_up">Регистрация</string>
+    <string name="sign_in">Вход</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Пароль</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Добро пожаловать!"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_email">Not a valid email</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="enter_your_password">Введите пароль</string>
+    <string name="username_plain_text">Введите имя пользователя</string>
+    <string name="button_back">Кнопка назад</string>
+    <string name="enter_you_email">Введите почту</string>
+    <string name="sign_out">Выйти</string>
+    <string name="database_error">Database connect error</string>
+    <string name="must_be_sign_in">Вы должны войти в аккаунт</string>
+    <string name="successful">Успешно!</string>
+    <string name="invalid_email_or_password">Неверная почта или пароль</string>
+    <string name="all_categories">Все категории</string>
+</resources>

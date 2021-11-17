@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/nav_bottom_shop">
+
+    <fragment
+        android:id="@+id/nav_bottom_shop"
+        android:name="com.example.magazine.ui.page.bottom_menu.shop.Shop"
+        android:label="shop_fragment"
+        tools:layout="@layout/shop_fragment" />
+    <fragment
+        android:id="@+id/nav_bottom_search"
+        android:name="com.example.magazine.ui.page.bottom_menu.search.Search"
+        android:label="search_fragment"
+        tools:layout="@layout/search_fragment" />
+    <fragment
+        android:id="@+id/nav_bottom_basket"
+        android:name="com.example.magazine.ui.page.bottom_menu.basket.Basket"
+        android:label="basket_fragment"
+        tools:layout="@layout/basket_fragment" />
+    <fragment
+        android:id="@+id/nav_bottom_favorites"
+        android:name="com.example.magazine.ui.page.bottom_menu.favorites.Favorites"
+        android:label="favorites_fragment"
+        tools:layout="@layout/favorites_fragment" />
+</navigation>

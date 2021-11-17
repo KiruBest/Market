@@ -1,0 +1,53 @@
+<resources>
+    <string name="app_name">Magazine</string>
+    <string name="shop">Shop</string>
+    <string name="search">Search</string>
+    <string name="basket">Basket</string>
+    <string name="favorites">Favorites</string>
+    <string name="add_to_bag">Add to bag</string>
+    <string name="sign_up">Sign up</string>
+    <string name="sign_in">Sign in</string>
+
+    <string-array name="string_size">
+        <item>Select size</item>
+        <item>38</item>
+        <item>39</item>
+        <item>40</item>
+        <item>41</item>
+        <item>42</item>
+        <item>43</item>
+        <item>44</item>
+        <item>45</item>
+    </string-array>
+
+    <string name="all_categories">All categories</string>
+    <string-array name="category_string_array">
+        <item>Select category</item>
+        <item>Men</item>
+        <item>Women</item>
+        <item>Kids</item>
+        <item>Sports</item>
+        <item>Accessories</item>
+    </string-array>
+
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_email">Not a valid email</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="enter_your_password">Enter your Password</string>
+    <string name="username_plain_text">Enter Username</string>
+    <string name="button_back">buttonBack</string>
+    <string name="enter_you_email">Enter you email</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="database_error">Database connect error</string>
+    <string name="must_be_sign_in">You must be signed in</string>
+    <string name="successful">Successful!</string>
+    <string name="invalid_email_or_password">Invalid email or password</string>
+
+</resources>
