@@ -24,6 +24,9 @@ import java.util.*
 import kotlin.collections.HashMap
 
 class AddProductActivity : AppCompatActivity(), BaseView {
+    companion object{
+        private const val GALLERY_RESULT = 1
+    }
     private lateinit var productPicture: ImageView
     private lateinit var productTitle: EditText
     private lateinit var productPrice: EditText
@@ -37,7 +40,6 @@ class AddProductActivity : AppCompatActivity(), BaseView {
     private lateinit var progressBarAddProduct: ProgressBar
 
     private var imageURI: Uri? = null
-    private val GALLERY_RESULT = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -10,7 +10,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.isEmpty
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.magazine.R
@@ -34,7 +36,7 @@ class Basket : Fragment() {
 
     private lateinit var recyclerViewBasket: RecyclerView
 
-    @SuppressLint("NotifyDataSetChanged")
+    @SuppressLint("NotifyDataSetChanged", "SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -51,7 +53,7 @@ class Basket : Fragment() {
                 val loginActivityIntent = Intent(activity, LoginActivity::class.java)
                 startActivity(loginActivityIntent)
             }
-        }, 200)
+        }, 2000)
 
         recyclerViewBasket = view.findViewById(R.id.recyclerViewBasket)
         recyclerViewBasket.layoutManager = LinearLayoutManager(requireContext())
@@ -59,8 +61,25 @@ class Basket : Fragment() {
         recyclerViewBasket.adapter = basketAdapter
         basketAdapter.notifyDataSetChanged()
 
+        if(OrderModel.orders.isNotEmpty()){
+            view.findViewById<LinearLayout>(R.id.totalLayout).visibility = View.VISIBLE
+            view.findViewById<TextView>(R.id.basketIsEmpty).visibility = View.INVISIBLE
+
+            var total: Int = 0
+            for (order in OrderModel.orders){
+                val price = order.productModel.productPrice.toString().subSequence(0,
+                    order.productModel.productPrice.toString().lastIndex).toString().toIntOrNull()
+                total += price!!*order.quantity
+            }
+
+            view.findViewById<TextView>(R.id.totalSum).text = "$total$"
+        }
 
         return view
+    }
+
+    override fun onResume() {
+        super.onResume()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

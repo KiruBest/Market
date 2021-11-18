@@ -27,6 +27,7 @@ class ProductPage : AppCompatActivity(), BaseView, View.OnClickListener {
     private lateinit var buttonAddToBag: Button
     private lateinit var buttonBack: ImageButton
     private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var product: ProductModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +40,8 @@ class ProductPage : AppCompatActivity(), BaseView, View.OnClickListener {
 
     override fun bindViews() {
         arguments = intent.extras
+
+        if(arguments != null) product = arguments!!["product"] as ProductModel
 
         productTitle = findViewById<TextView>(R.id.productTitle)
         productPrice = findViewById<TextView>(R.id.productPrice)
@@ -61,28 +64,18 @@ class ProductPage : AppCompatActivity(), BaseView, View.OnClickListener {
     }
 
     private fun loadProduct(){
-        if (intent.hasExtra("productTitle")) {
-            productTitle.text = arguments!!["productTitle"].toString()
-            productPrice.text = arguments!!["productPrice"].toString()
-            productDescription.text = arguments!!["productDescription"].toString()
-            pictureLoad(arguments!!["productPicture"].toString())
-        }
+        productTitle.text = product.productTitle
+        productPrice.text = product.productPrice.toString()
+        productDescription.text = product.productDescription
+        pictureLoad(product.productPicture)
     }
 
     override fun onClick(p0: View?) {
         val user = firebaseAuth.currentUser
 
         if (user != null){
-            if(!OrderModel.pids.contains(arguments!!["pid"].toString())) {
-                OrderModel.add(arguments!!["pid"].toString(),
-                    ProductModel(
-                            arguments!!["pid"].toString(),
-                            arguments!!["productPicture"].toString(),
-                            arguments!!["productTitle"].toString(),
-                        "",
-                            arguments!!["productPrice"].toString(),
-                        "",
-                        ""), this)
+            if(!OrderModel.orders.contains(OrderModel(product))) {
+                (OrderModel.orders as MutableList).add(OrderModel(product))
             } else {
                 Toast.makeText(this, "Уже в корзине!", Toast.LENGTH_SHORT).show()
             }

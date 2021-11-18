@@ -40,12 +40,7 @@ class ProductsAdapter(private val products: List<ProductModel>): RecyclerView.Ad
 
         holder.itemView.setOnClickListener {
             val intent = Intent(holder.itemView.context, ProductPage::class.java)
-            intent.putExtra("productTitle", products[position].productTitle)
-            intent.putExtra("productPrice", products[position].productPrice.toString())
-            intent.putExtra("productDescription", products[position].productDescription)
-            intent.putExtra("productPicture", products[position].productPicture)
-            intent.putExtra("pid", products[position].pid)
-
+            intent.putExtra("product", products[position])
             holder.itemView.context.startActivity(intent)
         }
     }

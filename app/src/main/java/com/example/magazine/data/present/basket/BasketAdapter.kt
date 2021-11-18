@@ -1,5 +1,7 @@
 package com.example.magazine.data.present.basket
 
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +9,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
 import com.example.magazine.R
 import com.example.magazine.ui.page.bottom_menu.basket.Basket
@@ -34,13 +37,14 @@ class BasketAdapter: RecyclerView.Adapter<BasketAdapter.BasketHolder>() {
     }
 
     override fun onBindViewHolder(holder: BasketHolder, position: Int) {
-        holder.productTitle?.text = OrderModel.orders[position].productTitle
-        holder.productPrice?.text = OrderModel.orders[position].productPrice.toString()
-        holder.countOfProducts?.setText("1")
-        Picasso.with(holder.itemView.context).load(OrderModel.orders[position].productPicture).into(holder.productPicture)
+        holder.productTitle?.text = OrderModel.orders[position].productModel.productTitle
+        holder.productPrice?.text = OrderModel.orders[position].productModel.productPrice.toString()
+        holder.countOfProducts?.setText(OrderModel.orders[position].quantity.toString())
+
+        Picasso.with(holder.itemView.context).load(OrderModel.orders[position].productModel.productPicture).into(holder.productPicture)
     }
 
     override fun getItemCount(): Int {
-        return OrderModel.pids.size
+        return OrderModel.orders.size
     }
 }

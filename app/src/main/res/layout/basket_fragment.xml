@@ -21,7 +21,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/buyProducts"
             style="@style/BigButtonStyle"
             android:text="@string/buy_products"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="@+id/button"
+            app:layout_constraintBottom_toTopOf="@+id/buyProducts"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
@@ -60,7 +60,7 @@
 
         <TextView
             style="@style/TextViewMain"
-            android:id="@+id/textView3"
+            android:id="@+id/basketIsEmpty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/basket_is_empty"
