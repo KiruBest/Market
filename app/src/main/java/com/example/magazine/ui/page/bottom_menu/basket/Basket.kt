@@ -5,21 +5,24 @@ import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.os.Handler
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
+import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.view.isEmpty
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.magazine.R
 import com.example.magazine.data.present.basket.BasketAdapter
+import com.example.magazine.data.present.basket.BasketPresenter
 import com.example.magazine.data.present.basket.OrderModel
-import com.example.magazine.data.present.products.ProductModel
-import com.example.magazine.ui.page.LoginActivity
+import com.example.magazine.ui.page.auth.LoginActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -36,12 +39,16 @@ class Basket : Fragment() {
 
     private lateinit var recyclerViewBasket: RecyclerView
 
+    private lateinit var totalSum: TextView
+
+    internal lateinit var view: View
+
     @SuppressLint("NotifyDataSetChanged", "SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.basket_fragment, container, false)
+    ): View {
+        view = inflater.inflate(R.layout.basket_fragment, container, false)
 
         firebaseAuth = Firebase.auth
         val user = firebaseAuth.currentUser
@@ -55,31 +62,21 @@ class Basket : Fragment() {
             }
         }, 2000)
 
+        totalSum = view.findViewById(R.id.totalSum)
+        totalSum.text = BasketPresenter.getTotalFirst(view)
+
         recyclerViewBasket = view.findViewById(R.id.recyclerViewBasket)
         recyclerViewBasket.layoutManager = LinearLayoutManager(requireContext())
-        val basketAdapter = BasketAdapter()
+        val basketAdapter = BasketAdapter(totalSum)
         recyclerViewBasket.adapter = basketAdapter
         basketAdapter.notifyDataSetChanged()
 
-        if(OrderModel.orders.isNotEmpty()){
-            view.findViewById<LinearLayout>(R.id.totalLayout).visibility = View.VISIBLE
-            view.findViewById<TextView>(R.id.basketIsEmpty).visibility = View.INVISIBLE
-
-            var total: Int = 0
-            for (order in OrderModel.orders){
-                val price = order.productModel.productPrice.toString().subSequence(0,
-                    order.productModel.productPrice.toString().lastIndex).toString().toIntOrNull()
-                total += price!!*order.quantity
-            }
-
-            view.findViewById<TextView>(R.id.totalSum).text = "$total$"
+        view.findViewById<Button>(R.id.buttonBuyProducts).setOnClickListener {
+            if(OrderModel.orders.isNotEmpty()) Toast.makeText(requireContext(),
+                BasketPresenter.getTotal(), Toast.LENGTH_SHORT).show()
         }
 
         return view
-    }
-
-    override fun onResume() {
-        super.onResume()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

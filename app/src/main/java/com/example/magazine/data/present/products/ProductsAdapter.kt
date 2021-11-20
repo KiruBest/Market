@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.magazine.*
-import com.example.magazine.ui.page.ProductPage
+import com.example.magazine.ui.page.productpage.ProductPage
 import com.squareup.picasso.Picasso
 
 class ProductsAdapter(private val products: List<ProductModel>): RecyclerView.Adapter<ProductsAdapter.ProductsHolder>() {

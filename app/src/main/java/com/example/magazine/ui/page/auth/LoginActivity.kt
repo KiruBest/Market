@@ -1,9 +1,7 @@
-package com.example.magazine.ui.page
+package com.example.magazine.ui.page.auth
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
@@ -12,8 +10,8 @@ import android.view.View
 import android.widget.*
 import com.example.magazine.*
 import com.example.magazine.interfaces.LoginView
+import com.example.magazine.ui.page.MainActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 
 class LoginActivity : AppCompatActivity(), LoginView, View.OnClickListener {
     private lateinit var email: EditText

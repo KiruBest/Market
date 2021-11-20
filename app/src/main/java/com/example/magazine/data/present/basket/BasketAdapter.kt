@@ -1,7 +1,9 @@
 package com.example.magazine.data.present.basket
 
+import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.ContextMenu
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,8 +17,10 @@ import com.example.magazine.R
 import com.example.magazine.ui.page.bottom_menu.basket.Basket
 import com.example.magazine.ui.page.bottom_menu.shop.Shop
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.basket_fragment.*
+import kotlinx.android.synthetic.main.basket_fragment.view.*
 
-class BasketAdapter: RecyclerView.Adapter<BasketAdapter.BasketHolder>() {
+class BasketAdapter(val textView: TextView): RecyclerView.Adapter<BasketAdapter.BasketHolder>() {
     class BasketHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         var productTitle: TextView? = null
         var productPrice: TextView? = null
@@ -40,6 +44,26 @@ class BasketAdapter: RecyclerView.Adapter<BasketAdapter.BasketHolder>() {
         holder.productTitle?.text = OrderModel.orders[position].productModel.productTitle
         holder.productPrice?.text = OrderModel.orders[position].productModel.productPrice.toString()
         holder.countOfProducts?.setText(OrderModel.orders[position].quantity.toString())
+
+        holder.countOfProducts?.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                return
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                OrderModel.orders[holder.absoluteAdapterPosition].quantity = p0.toString().toIntOrNull()
+                if (OrderModel.orders[holder.absoluteAdapterPosition].quantity != null) {
+                    BasketPresenter().sumRecalculate()
+                    textView.text = BasketPresenter.getTotal()
+                }
+                return
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                return
+            }
+
+        })
 
         Picasso.with(holder.itemView.context).load(OrderModel.orders[position].productModel.productPicture).into(holder.productPicture)
     }

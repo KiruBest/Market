@@ -18,15 +18,15 @@
             android:exported="true"
             android:windowSoftInputMode="adjustPan"/>
         <activity
-            android:name=".ui.page.RegisterActivity"
+            android:name=".ui.page.auth.RegisterActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".ui.page.LoginActivity"
+            android:name=".ui.page.auth.LoginActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".ui.page.ProductPage"
+            android:name=".ui.page.productpage.ProductPage"
             android:exported="true" />
         <activity
             android:name=".ui.page.MainActivity"

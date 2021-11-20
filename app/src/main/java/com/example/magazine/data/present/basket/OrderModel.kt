@@ -18,7 +18,7 @@ import java.util.prefs.Preferences
 
 data class OrderModel(
     val productModel: ProductModel,
-    var quantity: Int = 1
+    var quantity: Int? = 1
 ) : Serializable{
     companion object{
         var orders: List<OrderModel> = mutableListOf()

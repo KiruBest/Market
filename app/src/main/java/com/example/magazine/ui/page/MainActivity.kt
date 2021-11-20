@@ -11,6 +11,8 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.magazine.*
 import com.example.magazine.interfaces.BaseView
+import com.example.magazine.ui.page.auth.LoginActivity
+import com.example.magazine.ui.page.auth.RegisterActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth

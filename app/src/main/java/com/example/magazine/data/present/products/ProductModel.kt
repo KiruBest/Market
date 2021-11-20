@@ -1,12 +1,8 @@
 package com.example.magazine.data.present.products
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.util.Log
 import android.widget.ProgressBar
-import android.widget.Toast
-import com.example.magazine.R
-import com.example.magazine.interfaces.Saleble
 import com.google.firebase.database.*
 import java.io.Serializable
 
@@ -17,7 +13,7 @@ data class ProductModel(
     val productDescription:String,
     val productPrice:Any,
     val productSize:String,
-    val category: String): Saleble, Serializable {
+    val category: String): Serializable {
 
     companion object{
         val allProducts: List<ProductModel> = mutableListOf()
@@ -81,13 +77,5 @@ data class ProductModel(
             databaseReference.addValueEventListener(valueEventListener)
             databaseReference.onDisconnect()
         }
-    }
-
-    override fun getPrice(): Int {
-        return productPrice as Int
-    }
-
-    override fun getTitle(): String {
-        return productTitle
     }
 }

@@ -1,23 +1,23 @@
-package com.example.magazine.ui.page
+package com.example.magazine.ui.page.productpage
 
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.*
 import com.example.magazine.R
 import com.example.magazine.data.present.basket.OrderModel
 import com.example.magazine.data.present.products.ProductModel
 import com.example.magazine.interfaces.BaseView
+import com.example.magazine.ui.page.auth.LoginActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
 import java.lang.Exception
 
-class ProductPage : AppCompatActivity(), BaseView, View.OnClickListener {
+class ProductPage : AppCompatActivity(), BaseView {
     var arguments: Bundle? = null
 
     private lateinit var productTitle: TextView
@@ -35,13 +35,14 @@ class ProductPage : AppCompatActivity(), BaseView, View.OnClickListener {
 
         bindViews()
 
-        loadProduct()
+        bindProductInView()
     }
 
     override fun bindViews() {
         arguments = intent.extras
 
         if(arguments != null) product = arguments!!["product"] as ProductModel
+        else finish()
 
         productTitle = findViewById<TextView>(R.id.productTitle)
         productPrice = findViewById<TextView>(R.id.productPrice)
@@ -52,7 +53,20 @@ class ProductPage : AppCompatActivity(), BaseView, View.OnClickListener {
 
         firebaseAuth = Firebase.auth
 
-        buttonAddToBag.setOnClickListener(this)
+        buttonAddToBag.setOnClickListener{
+            val user = firebaseAuth.currentUser
+
+            if (user != null){
+                if(!OrderModel.orders.contains(OrderModel(product))) {
+                    (OrderModel.orders as MutableList).add(OrderModel(product))
+                } else {
+                    Toast.makeText(this, "Уже в корзине!", Toast.LENGTH_SHORT).show()
+                }
+            } else{
+                Toast.makeText(this, R.string.must_be_sign_in, Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this, LoginActivity::class.java))
+            }
+        }
 
         buttonBack.setOnClickListener {
             finish()
@@ -63,26 +77,11 @@ class ProductPage : AppCompatActivity(), BaseView, View.OnClickListener {
         return this
     }
 
-    private fun loadProduct(){
+    private fun bindProductInView(){
         productTitle.text = product.productTitle
         productPrice.text = product.productPrice.toString()
         productDescription.text = product.productDescription
         pictureLoad(product.productPicture)
-    }
-
-    override fun onClick(p0: View?) {
-        val user = firebaseAuth.currentUser
-
-        if (user != null){
-            if(!OrderModel.orders.contains(OrderModel(product))) {
-                (OrderModel.orders as MutableList).add(OrderModel(product))
-            } else {
-                Toast.makeText(this, "Уже в корзине!", Toast.LENGTH_SHORT).show()
-            }
-        } else{
-            Toast.makeText(this, R.string.must_be_sign_in, Toast.LENGTH_SHORT).show()
-            startActivity(Intent(this, LoginActivity::class.java))
-        }
     }
 
     private fun pictureLoad(url: String) {

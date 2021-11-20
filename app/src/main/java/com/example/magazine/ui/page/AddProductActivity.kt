@@ -91,7 +91,7 @@ class AddProductActivity : AppCompatActivity(), BaseView {
             val uploadTask: UploadTask = filePath.putFile(imageURI!!)
 
             uploadTask.addOnFailureListener(OnFailureListener {
-                Log.d("upload_in_storage_error", it.stackTraceToString())
+                Log.d("uploadInStorageError", it.stackTraceToString())
             }).addOnSuccessListener {
                 Log.d("successful", "Successful")
 
@@ -122,22 +122,18 @@ class AddProductActivity : AppCompatActivity(), BaseView {
         productMap["productPrice"] = productPrice.text.toString()
         productMap["productDescription"] = productDescription.text.toString()
 
-        try {
-            firebaseReference.child(productRandomKey).updateChildren(productMap)
-                .addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        Toast.makeText(this, R.string.successful, Toast.LENGTH_SHORT).show()
+        firebaseReference.child(productRandomKey).updateChildren(productMap)
+            .addOnCompleteListener {
+                if (it.isSuccessful) {
+                    Toast.makeText(this, R.string.successful, Toast.LENGTH_SHORT).show()
 
-                        progressBarAddProduct.visibility = ProgressBar.INVISIBLE
+                    progressBarAddProduct.visibility = ProgressBar.INVISIBLE
 
-                        finish()
-                    }else{
-                        Toast.makeText(this, "Беды", Toast.LENGTH_SHORT).show()
-                    }
+                    finish()
+                }else{
+                    Toast.makeText(this, "Download in Database not successful", Toast.LENGTH_SHORT).show()
                 }
-        }catch (e:java.lang.Exception){
-            Log.d("download_in_data_error", e.stackTraceToString())
-        }
+            }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
