@@ -52,5 +52,7 @@
     <string name="buy_products">Buy</string>
     <string name="total">total</string>
     <string name="basket_is_empty">Basket is empty</string>
+    <string name="favorite_is_empty">Is Empty</string>
+    <string name="search_for_title">Search</string>
 
 </resources>

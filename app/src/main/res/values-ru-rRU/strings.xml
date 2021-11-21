@@ -31,4 +31,6 @@
     <string name="buy_products">Купить</string>
     <string name="total">сумма</string>
     <string name="basket_is_empty">Корзина пуста</string>
+    <string name="favorite_is_empty">Пусто</string>
+    <string name="search_for_title">Search</string>
 </resources>
