@@ -8,6 +8,7 @@ data class CategoryModel(val id: Int, val category: String) {
         val categories: List<CategoryModel> = mutableListOf()
 
         fun fillCategory(context: Context) {
+            (categories as MutableList).clear()
             for((index, item) in context.resources.getStringArray(R.array.category_string_array).toList().withIndex())
                     (categories as MutableList).add(CategoryModel(index, item))
         }

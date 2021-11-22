@@ -9,8 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.magazine.R
 import com.example.magazine.data.present.products.ProductModel
 import com.example.magazine.data.present.products.ProductPresenter
-import com.example.magazine.data.present.products.ProductsAdapter
-import com.example.magazine.ui.page.bottom_menu.shop.Shop
 
 class CategoryAdapter(private val categories: List<CategoryModel>): RecyclerView.Adapter<CategoryAdapter.CategoryHolder>(){
     private lateinit var selectedItem: View
@@ -24,7 +22,7 @@ class CategoryAdapter(private val categories: List<CategoryModel>): RecyclerView
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.category_layout, parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.category_example_layout, parent, false)
 
         return CategoryHolder(itemView)
     }

@@ -44,7 +44,7 @@ class ProductPage : AppCompatActivity(), BaseView {
         bindProductInView()
     }
 
-    @SuppressLint("NotifyDataSetChanged")
+    @SuppressLint("NotifyDataSetChanged", "UseCompatLoadingForDrawables")
     override fun bindViews() {
         arguments = intent.extras
 
@@ -58,6 +58,9 @@ class ProductPage : AppCompatActivity(), BaseView {
         buttonAddToBag = findViewById<Button>(R.id.buttonAddToBag)
         buttonBack = findViewById<ImageButton>(R.id.buttonBack)
         favoriteIcon = findViewById(R.id.favoriteIcon)
+
+        if (FavoriteModel.favoritesList.contains(FavoriteModel(product)))
+            favoriteIcon.isSelected = true
 
         firebaseAuth = Firebase.auth
 
@@ -78,10 +81,12 @@ class ProductPage : AppCompatActivity(), BaseView {
 
         favoriteIcon.setOnClickListener {
             if (FavoriteModel.favoritesList.contains(FavoriteModel(product))) {
+                favoriteIcon.isSelected = false
                 (FavoriteModel.favoritesList as MutableList).remove(FavoriteModel(product))
                 Favorites.favoriteAdapter.notifyDataSetChanged()
                 Toast.makeText(this, "Удалено из избранного!", Toast.LENGTH_SHORT).show()
             } else {
+                favoriteIcon.isSelected = true
                 (FavoriteModel.favoritesList as MutableList).add(FavoriteModel(product))
                 Favorites.favoriteAdapter.notifyDataSetChanged()
                 Toast.makeText(this, "Добавлено в избранное!", Toast.LENGTH_SHORT).show()

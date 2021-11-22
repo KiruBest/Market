@@ -25,7 +25,7 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.FavoriteHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteHolder {
-        return FavoriteHolder(LayoutInflater.from(parent.context).inflate(R.layout.product_layout, parent, false))
+        return FavoriteHolder(LayoutInflater.from(parent.context).inflate(R.layout.product_in_shop_example_layout, parent, false))
     }
 
     override fun onBindViewHolder(holder: FavoriteHolder, position: Int) {

@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Adapter
 import android.widget.BaseAdapter
 import android.widget.Toast
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.magazine.R
@@ -43,7 +44,8 @@ class Search : Fragment() {
         viewModel.recyclerViewSearchProducts = requireView().findViewById(R.id.recyclerViewSearchProducts)
         val searchAdapter = SearchAdapter()
         viewModel.recyclerViewSearchProducts.adapter = searchAdapter
-        viewModel.recyclerViewSearchProducts.layoutManager = LinearLayoutManager(requireContext())
+        viewModel.recyclerViewSearchProducts.layoutManager = GridLayoutManager(requireContext(), 2)
+        (SearchModel.searched as MutableList).clear()
 
         viewModel.searchForTitle.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -72,8 +74,6 @@ class Search : Fragment() {
             override fun afterTextChanged(p0: Editable?) {
                 return
             }
-
         })
     }
-
 }
