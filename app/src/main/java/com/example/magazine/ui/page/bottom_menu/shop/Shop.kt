@@ -1,6 +1,5 @@
 package com.example.magazine.ui.page.bottom_menu.shop
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -8,7 +7,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,13 +15,12 @@ import com.example.magazine.data.present.category.CategoryAdapter
 import com.example.magazine.data.present.category.CategoryPresentor
 import com.example.magazine.data.present.products.ProductPresenter
 import com.example.magazine.data.present.products.ProductsAdapter
-import com.example.magazine.interfaces.ShopView
 import com.example.magazine.ui.page.AddProductActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-class Shop : Fragment(), ShopView {
+class Shop : Fragment() {
 
     companion object {
         private fun newInstance() = Shop()
@@ -32,22 +29,26 @@ class Shop : Fragment(), ShopView {
     }
 
     private lateinit var viewModel: ShopViewModel
-    private lateinit var progressBarShop: ProgressBar
     private lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val view = inflater.inflate(R.layout.shop_fragment, container, false)
-        progressBarShop = view.findViewById(R.id.progressBarShop)
+        return inflater.inflate(R.layout.shop_fragment, container, false)
+    }
 
-        val recyclerViewProducts = view.findViewById<RecyclerView>(R.id.recyclerViewProducts)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        viewModel = ViewModelProvider(this)[ShopViewModel::class.java]
+        viewModel.progressBarShop = requireView().findViewById(R.id.progressBarShop)
+
+        val recyclerViewProducts = requireView().findViewById<RecyclerView>(R.id.recyclerViewProducts)
         recyclerViewProducts.layoutManager = GridLayoutManager(requireContext(), 2)
         recyclerViewProducts.adapter = productsAdapter
-        ProductPresenter().fillProducts(progressBarShop)
+        ProductPresenter().fillProducts(viewModel.progressBarShop)
 
-        val recyclerViewCategory = view.findViewById<RecyclerView>(R.id.recyclerViewCategory)
+        val recyclerViewCategory = requireView().findViewById<RecyclerView>(R.id.recyclerViewCategory)
         recyclerViewCategory.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         recyclerViewCategory.setHasFixedSize(true)
         CategoryPresentor().fillCategory(requireContext())
@@ -56,7 +57,7 @@ class Shop : Fragment(), ShopView {
         firebaseAuth = Firebase.auth
 
         if(chekAdminAccount()){
-            val buttonPlus: View = view.findViewById(R.id.buttonPlus)
+            val buttonPlus: View = requireView().findViewById(R.id.buttonPlus)
 
             buttonPlus.visibility = View.VISIBLE
 
@@ -65,21 +66,6 @@ class Shop : Fragment(), ShopView {
                 startActivity(addProductActivityIntent)
             }
         }
-
-        return view
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this)[ShopViewModel::class.java]
-    }
-
-    override fun showProgress() {
-        progressBarShop.visibility = ProgressBar.GONE
-    }
-
-    override fun hideProgress() {
-        progressBarShop.visibility = ProgressBar.INVISIBLE
     }
 
     private fun chekAdminAccount(): Boolean{

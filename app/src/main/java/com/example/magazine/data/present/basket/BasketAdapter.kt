@@ -7,10 +7,7 @@ import android.view.ContextMenu
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
 import com.example.magazine.R
@@ -26,12 +23,16 @@ class BasketAdapter(val textView: TextView): RecyclerView.Adapter<BasketAdapter.
         var productPrice: TextView? = null
         var productPicture: ImageView? = null
         var countOfProducts: EditText? = null
+        var buttonInc: ImageButton? = null
+        var buttonDec: ImageButton? = null
 
         init {
             productTitle = itemView.findViewById(R.id.productTitle)
             productPrice = itemView.findViewById(R.id.productPrice)
             productPicture = itemView.findViewById(R.id.productPicture)
             countOfProducts = itemView.findViewById(R.id.countOfProducts)
+            buttonInc = itemView.findViewById(R.id.buttonInc)
+            buttonDec = itemView.findViewById(R.id.buttonDec)
         }
     }
 
@@ -64,6 +65,16 @@ class BasketAdapter(val textView: TextView): RecyclerView.Adapter<BasketAdapter.
             }
 
         })
+
+        holder.buttonInc?.setOnClickListener {
+            holder.countOfProducts?.setText((holder.countOfProducts?.text.toString().toInt() + 1)
+                .toString())
+        }
+
+        holder.buttonDec?.setOnClickListener {
+            holder.countOfProducts?.setText((holder.countOfProducts?.text.toString().toInt() - 1)
+                .toString())
+        }
 
         Picasso.with(holder.itemView.context).load(OrderModel.orders[position].productModel.productPicture).into(holder.productPicture)
     }

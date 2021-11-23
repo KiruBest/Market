@@ -13,20 +13,19 @@ import com.example.magazine.R
 import com.example.magazine.interfaces.BaseView
 import com.google.android.gms.tasks.Continuation
 import com.google.android.gms.tasks.OnFailureListener
-import com.google.android.gms.tasks.Task
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
-import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashMap
 
 class AddProductActivity : AppCompatActivity(), BaseView {
     companion object{
-        private const val GALLERY_RESULT = 1
+        private const val REQUEST_IMAGE_GET = 1
     }
+
     private lateinit var productPicture: ImageView
     private lateinit var productTitle: EditText
     private lateinit var productPrice: EditText
@@ -41,11 +40,14 @@ class AddProductActivity : AppCompatActivity(), BaseView {
 
     private var imageURI: Uri? = null
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_product)
 
         bindViews()
+
+        productPicture.setImageDrawable(this.resources.getDrawable(R.drawable.ic_baseline_arrow_downward_200))
 
         productPicture.setOnClickListener {
             openGallery()
@@ -138,17 +140,18 @@ class AddProductActivity : AppCompatActivity(), BaseView {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode == GALLERY_RESULT && resultCode == RESULT_OK && data != null){
+        if(requestCode == REQUEST_IMAGE_GET && resultCode == RESULT_OK && data != null){
             imageURI = data.data!!
             productPicture.setImageURI(imageURI)
         }
     }
 
     private fun openGallery() {
-       val openGalleryIntent = Intent()
+        val openGalleryIntent = Intent()
         openGalleryIntent.action = Intent.ACTION_GET_CONTENT
         openGalleryIntent.type = "image/*"
-        startActivityForResult(openGalleryIntent, GALLERY_RESULT)
+        if(openGalleryIntent.resolveActivity(packageManager) != null)
+            startActivityForResult(openGalleryIntent, REQUEST_IMAGE_GET)
     }
 
     override fun bindViews() {

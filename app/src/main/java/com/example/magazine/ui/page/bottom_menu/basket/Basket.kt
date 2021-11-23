@@ -41,15 +41,17 @@ class Basket : Fragment() {
 
     private lateinit var totalSum: TextView
 
-    internal lateinit var view: View
-
-    @SuppressLint("NotifyDataSetChanged", "SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        view = inflater.inflate(R.layout.basket_fragment, container, false)
+        return inflater.inflate(R.layout.basket_fragment, container, false)
+    }
 
+    @SuppressLint("NotifyDataSetChanged")
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        viewModel = ViewModelProvider(this)[BasketViewModel::class.java]
         firebaseAuth = Firebase.auth
         val user = firebaseAuth.currentUser
 
@@ -62,27 +64,19 @@ class Basket : Fragment() {
             }
         }, 2000)
 
-        totalSum = view.findViewById(R.id.totalSum)
-        totalSum.text = BasketPresenter.getTotalFirst(view)
+        totalSum = requireView().findViewById(R.id.totalSum)
+        totalSum.text = BasketPresenter.getTotalFirst(requireView())
 
-        recyclerViewBasket = view.findViewById(R.id.recyclerViewBasket)
+        recyclerViewBasket = requireView().findViewById(R.id.recyclerViewBasket)
         recyclerViewBasket.layoutManager = LinearLayoutManager(requireContext())
         val basketAdapter = BasketAdapter(totalSum)
         recyclerViewBasket.adapter = basketAdapter
         basketAdapter.notifyDataSetChanged()
 
-        view.findViewById<Button>(R.id.buttonBuyProducts).setOnClickListener {
+        requireView().findViewById<Button>(R.id.buttonBuyProducts).setOnClickListener {
             if(OrderModel.orders.isNotEmpty()) Toast.makeText(requireContext(),
                 BasketPresenter.getTotal(), Toast.LENGTH_SHORT).show()
         }
-
-        return view
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this)[BasketViewModel::class.java]
-        // TODO: Use the ViewModel
     }
 
 }

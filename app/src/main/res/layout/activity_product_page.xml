@@ -63,7 +63,7 @@
     <ImageView
         android:id="@+id/productPicture"
         android:layout_width="0dp"
-        android:layout_height="260dp"
+        android:layout_height="256dp"
         android:contentDescription="Product Picture"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

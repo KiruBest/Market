@@ -13,6 +13,7 @@ import com.example.magazine.data.present.basket.OrderModel
 import com.example.magazine.data.present.favorite.FavoriteModel
 import com.example.magazine.data.present.products.ProductModel
 import com.example.magazine.interfaces.BaseView
+import com.example.magazine.ui.page.MainActivity
 import com.example.magazine.ui.page.auth.LoginActivity
 import com.example.magazine.ui.page.bottom_menu.favorites.Favorites
 import com.example.magazine.ui.page.bottom_menu.favorites.FavoritesViewModel
@@ -70,6 +71,8 @@ class ProductPage : AppCompatActivity(), BaseView {
             if (user != null){
                 if(!OrderModel.orders.contains(OrderModel(product))) {
                     (OrderModel.orders as MutableList).add(OrderModel(product))
+                    MainActivity.changeBandageInBottomMenu()
+                    Toast.makeText(this, "Добавлено в корзину", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(this, "Уже в корзине!", Toast.LENGTH_SHORT).show()
                 }
@@ -84,11 +87,13 @@ class ProductPage : AppCompatActivity(), BaseView {
                 favoriteIcon.isSelected = false
                 (FavoriteModel.favoritesList as MutableList).remove(FavoriteModel(product))
                 Favorites.favoriteAdapter.notifyDataSetChanged()
+                MainActivity.changeBandageInBottomMenu()
                 Toast.makeText(this, "Удалено из избранного!", Toast.LENGTH_SHORT).show()
             } else {
                 favoriteIcon.isSelected = true
                 (FavoriteModel.favoritesList as MutableList).add(FavoriteModel(product))
                 Favorites.favoriteAdapter.notifyDataSetChanged()
+                MainActivity.changeBandageInBottomMenu()
                 Toast.makeText(this, "Добавлено в избранное!", Toast.LENGTH_SHORT).show()
             }
         }

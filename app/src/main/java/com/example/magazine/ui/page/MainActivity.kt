@@ -10,15 +10,40 @@ import android.view.MenuItem
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.magazine.*
+import com.example.magazine.data.present.basket.OrderModel
+import com.example.magazine.data.present.favorite.FavoriteModel
 import com.example.magazine.interfaces.BaseView
 import com.example.magazine.ui.page.auth.LoginActivity
 import com.example.magazine.ui.page.auth.RegisterActivity
+import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity(), BaseView {
+    companion object{
+        private lateinit var bottomNavigationView: BottomNavigationView
+        private lateinit var basketBadge: BadgeDrawable
+        private lateinit var favoriteBadge: BadgeDrawable
+
+        fun changeBandageInBottomMenu(){
+            if (OrderModel.orders.count() == 0){
+                basketBadge.isVisible = false
+            } else {
+                basketBadge.isVisible = true
+                basketBadge.number = OrderModel.orders.count()
+            }
+
+            if (FavoriteModel.favoritesList.count() == 0){
+                favoriteBadge.isVisible = false
+            } else {
+                favoriteBadge.isVisible = true
+                favoriteBadge.number = FavoriteModel.favoritesList.count()
+            }
+        }
+    }
+
     private lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -93,9 +118,18 @@ class MainActivity : AppCompatActivity(), BaseView {
 
     private fun createBottomNavigationMenu(){
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_bottom_host_fragment) as NavHostFragment
-        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_nav_view)
+        bottomNavigationView = findViewById(R.id.bottom_nav_view)
         val navController = navHostFragment.navController
 
         bottomNavigationView.setupWithNavController(navController)
+        setBandageInBottomMenu()
+        changeBandageInBottomMenu()
+    }
+
+    private fun setBandageInBottomMenu(){
+        basketBadge = bottomNavigationView.getOrCreateBadge(R.id.nav_bottom_basket)
+        basketBadge.backgroundColor = this.resources.getColor(R.color.pink_color_primary)
+        favoriteBadge = bottomNavigationView.getOrCreateBadge(R.id.nav_bottom_favorites)
+        favoriteBadge.backgroundColor = this.resources.getColor(R.color.pink_color_primary)
     }
 }

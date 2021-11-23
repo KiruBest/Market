@@ -1,7 +1,10 @@
 package com.example.magazine.ui.page.bottom_menu.shop
 
+import android.annotation.SuppressLint
+import android.widget.ProgressBar
 import androidx.lifecycle.ViewModel
 
 class ShopViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
+    @SuppressLint("StaticFieldLeak")
+    lateinit var progressBarShop: ProgressBar
 }
