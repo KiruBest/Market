@@ -7,10 +7,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ProgressBar
-import android.widget.Toast
+import android.widget.*
 import com.example.magazine.R
 import com.example.magazine.interfaces.RegisteryView
 import com.example.magazine.ui.page.MainActivity
@@ -73,6 +70,10 @@ class RegisterActivity : AppCompatActivity(), RegisteryView, View.OnClickListene
         firebaseAuth = FirebaseAuth.getInstance()
 
         buttonCreateAccount.setOnClickListener(this)
+
+        findViewById<ImageButton>(R.id.buttonBack).setOnClickListener {
+            finish()
+        }
     }
 
     override fun getContext(): Context {

@@ -23,6 +23,7 @@
         <Button
             android:id="@+id/buttonBuyProducts"
             style="@style/BigButtonStyle"
+            android:visibility="invisible"
             android:text="@string/buy_products"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

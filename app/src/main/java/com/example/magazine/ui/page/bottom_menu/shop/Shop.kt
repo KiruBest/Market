@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -24,7 +25,7 @@ class Shop : Fragment() {
 
     companion object {
         private fun newInstance() = Shop()
-        private const val ADMIN_UID: String = "eFM2Za3s0hcJ9bBMRPGeTpxK7iF3"
+        private const val ADMIN_UID: String = "wFsiIg6QxzVuHgvKuN69vJevyie2"
         val productsAdapter = ProductsAdapter(ProductPresenter().getProducts())
     }
 
@@ -42,6 +43,8 @@ class Shop : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this)[ShopViewModel::class.java]
         viewModel.progressBarShop = requireView().findViewById(R.id.progressBarShop)
+
+        requireActivity().findViewById<TextView>(R.id.toolbarTextView).text = requireContext().resources.getText(R.string.shop)
 
         val recyclerViewProducts = requireView().findViewById<RecyclerView>(R.id.recyclerViewProducts)
         recyclerViewProducts.layoutManager = GridLayoutManager(requireContext(), 2)

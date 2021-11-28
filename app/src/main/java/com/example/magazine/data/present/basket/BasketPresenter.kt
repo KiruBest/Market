@@ -1,6 +1,7 @@
 package com.example.magazine.data.present.basket
 
 import android.view.View
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.example.magazine.R
@@ -23,6 +24,7 @@ class BasketPresenter {
 
         if(OrderModel.orders.isNotEmpty()){
             view.findViewById<LinearLayout>(R.id.totalLayout).visibility = View.VISIBLE
+            view.findViewById<Button>(R.id.buttonBuyProducts).visibility = View.VISIBLE
             view.findViewById<TextView>(R.id.basketIsEmpty).visibility = View.INVISIBLE
 
             for (order in OrderModel.orders){

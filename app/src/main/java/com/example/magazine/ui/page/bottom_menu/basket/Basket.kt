@@ -52,6 +52,9 @@ class Basket : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this)[BasketViewModel::class.java]
+
+        requireActivity().findViewById<TextView>(R.id.toolbarTextView).text = requireContext().resources.getText(R.string.basket)
+
         firebaseAuth = Firebase.auth
         val user = firebaseAuth.currentUser
 
@@ -69,7 +72,7 @@ class Basket : Fragment() {
 
         recyclerViewBasket = requireView().findViewById(R.id.recyclerViewBasket)
         recyclerViewBasket.layoutManager = LinearLayoutManager(requireContext())
-        val basketAdapter = BasketAdapter(totalSum)
+        val basketAdapter = BasketAdapter(totalSum, requireView())
         recyclerViewBasket.adapter = basketAdapter
         basketAdapter.notifyDataSetChanged()
 

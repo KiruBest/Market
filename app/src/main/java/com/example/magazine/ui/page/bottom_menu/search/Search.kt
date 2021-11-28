@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Adapter
 import android.widget.BaseAdapter
+import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -40,6 +41,9 @@ class Search : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this)[SearchViewModel::class.java]
+
+        requireActivity().findViewById<TextView>(R.id.toolbarTextView).text = requireContext().resources.getText(R.string.search)
+
         viewModel.searchForTitle = requireView().findViewById(R.id.searchForTitle)
         viewModel.recyclerViewSearchProducts = requireView().findViewById(R.id.recyclerViewSearchProducts)
         val searchAdapter = SearchAdapter()

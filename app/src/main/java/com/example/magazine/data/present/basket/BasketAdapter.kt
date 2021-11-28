@@ -1,6 +1,7 @@
 package com.example.magazine.data.present.basket
 
 import android.content.Context
+import android.content.Intent
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.ContextMenu
@@ -11,13 +12,18 @@ import android.widget.*
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
 import com.example.magazine.R
+import com.example.magazine.ui.page.MainActivity
+import com.example.magazine.ui.page.auth.LoginActivity
 import com.example.magazine.ui.page.bottom_menu.basket.Basket
 import com.example.magazine.ui.page.bottom_menu.shop.Shop
+import com.example.magazine.ui.page.productpage.ProductPage
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.basket_fragment.*
 import kotlinx.android.synthetic.main.basket_fragment.view.*
+import kotlinx.coroutines.delay
+import java.util.logging.Handler
 
-class BasketAdapter(val textView: TextView): RecyclerView.Adapter<BasketAdapter.BasketHolder>() {
+class BasketAdapter(val textView: TextView, val view: View): RecyclerView.Adapter<BasketAdapter.BasketHolder>() {
     class BasketHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         var productTitle: TextView? = null
         var productPrice: TextView? = null
@@ -25,6 +31,7 @@ class BasketAdapter(val textView: TextView): RecyclerView.Adapter<BasketAdapter.
         var countOfProducts: EditText? = null
         var buttonInc: ImageButton? = null
         var buttonDec: ImageButton? = null
+        var buttonDeleteItem: ImageButton? = null
 
         init {
             productTitle = itemView.findViewById(R.id.productTitle)
@@ -33,6 +40,7 @@ class BasketAdapter(val textView: TextView): RecyclerView.Adapter<BasketAdapter.
             countOfProducts = itemView.findViewById(R.id.countOfProducts)
             buttonInc = itemView.findViewById(R.id.buttonInc)
             buttonDec = itemView.findViewById(R.id.buttonDec)
+            buttonDeleteItem = itemView.findViewById(R.id.buttonDeleteItem)
         }
     }
 
@@ -76,7 +84,37 @@ class BasketAdapter(val textView: TextView): RecyclerView.Adapter<BasketAdapter.
                 .toString())
         }
 
+        holder.itemView.setOnClickListener {
+            val intent = Intent(holder.itemView.context, ProductPage::class.java)
+            intent.putExtra("product", OrderModel.orders[holder.absoluteAdapterPosition].productModel)
+            holder.itemView.context.startActivity(intent)
+        }
+
+        holder.itemView.setOnLongClickListener {
+            removeItem(holder)
+            return@setOnLongClickListener true
+        }
+
+        holder.buttonDeleteItem!!.setOnClickListener {
+            removeItem(holder)
+        }
+
         Picasso.with(holder.itemView.context).load(OrderModel.orders[position].productModel.productPicture).into(holder.productPicture)
+    }
+
+    private fun removeItem(holder: BasketHolder){
+        (OrderModel.orders as MutableList).removeAt(holder.absoluteAdapterPosition)
+        notifyItemRemoved(holder.absoluteAdapterPosition)
+        notifyItemRangeChanged(holder.absoluteAdapterPosition, itemCount)
+        MainActivity.changeBandageInBottomMenu()
+
+        android.os.Handler().postDelayed({
+            if(OrderModel.orders.isEmpty()){
+                view.findViewById<LinearLayout>(R.id.totalLayout).visibility = View.INVISIBLE
+                view.findViewById<Button>(R.id.buttonBuyProducts).visibility = View.INVISIBLE
+                view.findViewById<TextView>(R.id.basketIsEmpty).visibility = View.VISIBLE
+            }
+        }, 200)
     }
 
     override fun getItemCount(): Int {

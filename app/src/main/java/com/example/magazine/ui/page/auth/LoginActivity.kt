@@ -74,6 +74,10 @@ class LoginActivity : AppCompatActivity(), LoginView, View.OnClickListener {
         noAccount.setOnClickListener {
             navigationToSignUp()
         }
+
+        findViewById<ImageButton>(R.id.buttonBack).setOnClickListener {
+            finish()
+        }
     }
 
     override fun getContext(): Context {

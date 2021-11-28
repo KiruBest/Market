@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.magazine.R
 import com.example.magazine.data.present.favorite.FavoriteAdapter
@@ -30,6 +31,9 @@ class Favorites : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this)[FavoritesViewModel::class.java]
+
+        requireActivity().findViewById<TextView>(R.id.toolbarTextView).text = requireContext().resources.getText(R.string.favorites)
+
         viewModel.recyclerViewFavorites = requireView().findViewById(R.id.recyclerViewFavorite)
         viewModel.isEmptyFavorite = requireView().findViewById(R.id.isEmptyFavorite)
 

@@ -108,6 +108,7 @@ class ProductPage : AppCompatActivity(), BaseView {
     }
 
     private fun bindProductInView(){
+        findViewById<TextView>(R.id.textView).text = product.productTitle
         productTitle.text = product.productTitle
         productPrice.text = product.productPrice.toString()
         productDescription.text = product.productDescription
